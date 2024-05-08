@@ -56,13 +56,21 @@ class PostController extends Controller
     }
 
 
+    
 
     
     // Method to delete a post
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        $post->delete();
-        return response()->json(null, 204);
+        $user = Post::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Post deleted successfully']);
     }
 
 }
