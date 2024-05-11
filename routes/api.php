@@ -37,8 +37,12 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
 
+
+
 Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
+Route::get('/posts/select/{id}', [PostController::class, 'select']) ;           /*  */
+Route::get('/posts/allposts', [PostController::class, 'allposts']);             /*  */
+Route::get('/posts/detail/{id}', [PostController::class, 'detail']);
 Route::post('/posts', [PostController::class, 'store']);
 Route::put('/posts/{id}', [PostController::class, 'update']);
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);

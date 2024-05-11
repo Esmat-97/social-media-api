@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -14,6 +15,41 @@ class PostController extends Controller
     {
         $posts = Post::all();
         return response()->json($posts);
+    }
+
+
+
+    
+    public function select($id)
+    {
+        // Retrieve expenses associated with the specified user ID
+        $expenses = Post::with('user')->where('user_id', $id)->get();
+
+        // Check if any expenses were found
+        if ($expenses->isEmpty()) {
+            return response()->json(['message' => 'No posts found for the user'], 404);
+        }
+
+        // Return the expenses as a JSON response
+        return response()->json($expenses, 200);
+    }
+
+
+
+
+
+    public function allposts()
+    {
+        // Retrieve all posts along with their associated users
+        $posts = Post::with('user')->get();
+
+        // Check if any posts were found
+        if ($posts->isEmpty()) {
+            return response()->json(['message' => 'No posts found'], 404);
+        }
+
+        // Return the posts as a JSON response
+        return response()->json($posts, 200);
     }
 
 
@@ -30,13 +66,21 @@ class PostController extends Controller
 
 
 
-
-    // Method to show a specific post
-    public function show(Post $post)
+    public function detail($id)
     {
-        return response()->json($post);
-    }
+        $user = Post::find($id);
 
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json(['users' => $user]);
+    }
+   
+
+
+
+    
     // Method to update a post
     public function update(Request $request, Post $post)
     {
