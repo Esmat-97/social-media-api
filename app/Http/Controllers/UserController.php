@@ -33,6 +33,26 @@ class UserController extends Controller
 
 
 
+    
+    public function search($letter)
+    {
+        // Retrieve expenses associated with the specified user letter
+        $expenses = User::where('name', 'like', $letter . '%')->get();
+    
+        // Check if any expenses were found
+        if ($expenses->isEmpty()) {
+            return response()->json(['message' => 'No expenses found for the user'], 404);
+        }
+    
+        // Return the expenses as a JSON response
+        return response()->json($expenses, 200);
+    }
+    
+
+
+
+
+
     public function store(Request $request)
 {
     $validator = Validator::make($request->all(), [
