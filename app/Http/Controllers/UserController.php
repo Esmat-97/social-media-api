@@ -11,10 +11,19 @@ class UserController extends Controller
     //
 
 
-    public function index()
+    public function index($id)
     {
-        $users = User::all();
-        return response()->json(['users' => $users]);
+          // Retrieve expenses associated with the specified user letter
+          $expenses = User::whereNotIn('id', [$id])->get();
+
+    
+          // Check if any expenses were found
+          if ($expenses->isEmpty()) {
+              return response()->json(['message' => 'No expenses found for the user'], 404);
+          }
+      
+          // Return the expenses as a JSON response
+          return response()->json($expenses, 200);
     }
 
 

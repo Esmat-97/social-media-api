@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     //
+
+
+
 
 
     public function index()
@@ -69,6 +73,10 @@ class PostController extends Controller
     public function detail($id)
     {
         $user = Post::find($id);
+
+        if ($user->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
