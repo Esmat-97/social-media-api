@@ -72,17 +72,16 @@ class PostController extends Controller
 
     public function detail($id)
     {
-        $user = Post::find($id);
+           // Retrieve expenses associated with the specified user ID
+           $expenses = Post::with('user')->where('id', $id)->get();
 
-        if ($user->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
-
-        return response()->json(['users' => $user]);
+           // Check if any expenses were found
+           if ($expenses->isEmpty()) {
+               return response()->json(['message' => 'No posts found for the user'], 404);
+           }
+   
+           // Return the expenses as a JSON response
+           return response()->json($expenses, 200);
     }
    
 

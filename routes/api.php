@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,10 @@ Route::post('/logout', [AuthController:: class ,"logout"] )->middleware('auth');
 
 
 
-Route::get('/users/not/{id}', [UserController::class, 'index']);                  /*  */
-Route::get('/users/search/{letter}', [UserController::class, 'search']);         /*  */
-Route::get('/users/{id}', [UserController::class, 'show']);                      /*  */
+
+Route::get('/users/not/{id}', [UserController::class, 'index']);                    /*  */
+Route::get('/users/search/{letter}', [UserController::class, 'search']);            /*  */
+Route::get('/users/{id}', [UserController::class, 'show']);                         /*  */
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
@@ -46,11 +48,23 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
 
-
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/select/{id}', [PostController::class, 'select']) ;           /*  */
 Route::get('/posts/allposts', [PostController::class, 'allposts']);             /*  */
-Route::get('/posts/detail/{id}', [PostController::class, 'detail']);
+Route::get('/posts/detail/{id}', [PostController::class, 'detail']);            /*  */
 Route::post('/posts', [PostController::class, 'store']);                        /*  */
 Route::put('/posts/{id}', [PostController::class, 'update']);
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);               /*  */
+
+
+
+
+
+Route::get('/comments/{post_id}', [CommentsController::class, 'index']);             /*  */
+Route::get('/comments/count/{post_id}', [CommentsController::class, 'count']);       /*  */
+Route::get('/comments/{id}', [CommentsController::class, 'show']);
+Route::post('/comments', [CommentsController::class, 'store']);                      /*  */
+Route::put('/comments/{id}', [CommentsController::class, 'update']);
+Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);
+
+
