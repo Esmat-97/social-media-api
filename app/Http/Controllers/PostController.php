@@ -11,7 +11,20 @@ class PostController extends Controller
 {
     //
 
-
+    public function count($user_id)
+    {
+        // Retrieve the count of comments for the given post ID
+        $commentCount = Post::where('user_id', $user_id)->count();
+    
+        // Check if any comments were found
+        if ($commentCount == 0) {
+            return response()->json(['message' => 'No comments found'], 404);
+        }
+    
+        // Return the comment count as a JSON response
+        return response()->json(['comment_count' => $commentCount], 200);
+    }
+    
 
 
 

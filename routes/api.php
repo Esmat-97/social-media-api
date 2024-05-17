@@ -24,8 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/password/email', [ResetPasswordController::class, 'sendResetLinkEmail']);
-Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
+// Route::post('/password/email', [ResetPasswordController::class, 'sendResetLinkEmail']);
+// Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
+
+
+
+
+
 
 
 
@@ -48,7 +53,7 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
 
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/count/{user_id}', [PostController::class, 'count']);         /*  */
 Route::get('/posts/select/{id}', [PostController::class, 'select']) ;           /*  */
 Route::get('/posts/allposts', [PostController::class, 'allposts']);             /*  */
 Route::get('/posts/detail/{id}', [PostController::class, 'detail']);            /*  */
@@ -66,6 +71,6 @@ Route::get('/comments/{id}', [CommentsController::class, 'show']);
 Route::post('/comments', [CommentsController::class, 'store']);                      /*  */
 Route::put('/comments/{id}', [CommentsController::class, 'update']);
 Route::get('/comments', [CommentsController::class, 'get']);
-Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);
+Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);             /* */
 
 
