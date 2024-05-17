@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\LikePostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,16 @@ Route::put('/comments/{id}', [CommentsController::class, 'update']);
 Route::get('/comments', [CommentsController::class, 'get']);
 Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);             /* */
 
+
+
+
+
+Route::get('/likes/count/{post_id}', [LikePostController::class, 'count']);           /*   */
+Route::get('/user/{user_id}/likes', [LikePostController::class, 'userLikes']);        /*   */
+Route::get('/likes/all', [LikePostController::class, 'allLikes']);                  
+Route::get('/likes/detail/{id}', [LikePostController::class, 'detail']);           
+Route::post('/likes', [LikePostController::class, 'store']);                          /*   */
+Route::put('/likes/{id}', [LikePostController::class, 'update']);               
+Route::post('/likes/check', [LikePostController::class, 'check']);                    /*   */     
+Route::delete('/likes', [LikePostController::class, 'destroy']);                      /*   */
 
