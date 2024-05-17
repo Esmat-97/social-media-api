@@ -65,6 +65,7 @@ Route::get('/comments/count/{post_id}', [CommentsController::class, 'count']);  
 Route::get('/comments/{id}', [CommentsController::class, 'show']);
 Route::post('/comments', [CommentsController::class, 'store']);                      /*  */
 Route::put('/comments/{id}', [CommentsController::class, 'update']);
+Route::get('/comments', [CommentsController::class, 'get']);
 Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);
 
 

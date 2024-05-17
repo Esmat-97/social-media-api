@@ -58,6 +58,8 @@ class CommentsController extends Controller
 
 
 
+
+
     
     public function store(Request $request)
     {
@@ -77,6 +79,9 @@ class CommentsController extends Controller
         return response()->json($comment, 201);
     }
 
+
+
+
     public function update(Request $request, $id)
     {
         // Validate and update an existing comment
@@ -94,6 +99,10 @@ class CommentsController extends Controller
         return response()->json($comment);
     }
 
+
+
+
+
     public function destroy($id)
     {
         // Delete a comment
@@ -104,5 +113,19 @@ class CommentsController extends Controller
 
         $comment->delete();
         return response()->json(['message' => 'Comment deleted']);
+    }
+
+
+
+
+    public function get()
+    {
+        $comment = Comment::all();
+
+        if (!$comment) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($comment);
     }
 }
