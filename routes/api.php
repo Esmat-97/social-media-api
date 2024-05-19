@@ -55,6 +55,9 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
 
+
+
+
 Route::get('/posts/count/{user_id}', [PostController::class, 'count']);         /*  */
 Route::get('/posts/select/{id}', [PostController::class, 'select']) ;           /*  */
 Route::get('/posts/allposts', [PostController::class, 'allposts']);             /*  */
@@ -67,13 +70,18 @@ Route::delete('/posts/{id}', [PostController::class, 'destroy']);               
 
 
 
-Route::get('/comments/{post_id}', [CommentsController::class, 'index']);             /*  */
-Route::get('/comments/count/{post_id}', [CommentsController::class, 'count']);       /*  */
+
+
+
+Route::get('/comments/{post_id}', [CommentsController::class, 'index']);             /*   */
+Route::get('/comments/count/{post_id}', [CommentsController::class, 'count']);       /*   */
 Route::get('/comments/{id}', [CommentsController::class, 'show']);
-Route::post('/comments', [CommentsController::class, 'store']);                      /*  */
+Route::post('/comments', [CommentsController::class, 'store']);                      /*   */
 Route::put('/comments/{id}', [CommentsController::class, 'update']);
 Route::get('/comments', [CommentsController::class, 'get']);
-Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);             /* */
+Route::delete('/comments/{id}', [CommentsController::class, 'destroy']);             /*   */
+
+
 
 
 
@@ -92,13 +100,18 @@ Route::delete('/likes', [LikePostController::class, 'destroy']);                
 
 
 
-Route::get('/likes/count/{post_id}', [LikeCommentsController::class, 'count']);           /*   */
-Route::get('/user/{user_id}/likes', [LikeCommentsController::class, 'userLikes']);        /*   */
-Route::get('/likes/all', [LikeCommentsController::class, 'allLikes']);                  
-Route::get('/likes/detail/{id}', [LikeCommentsController::class, 'detail']);           
-Route::post('/likes', [LikeCommentsController::class, 'store']);                          /*   */
-Route::put('/likes/{id}', [LikeCommentsController::class, 'update']);               
-Route::post('/likes/check', [LikeCommentsController::class, 'check']);                    /*   */     
-Route::delete('/likes', [LikeCommentsController::class, 'destroy']);                      /*   */
+
+
+
+
+
+Route::get('/commentlikes/count/{comment_id}', [LikeCommentsController::class, 'count']);           /*   */
+Route::get('/user/{user_id}/commentlikes', [LikeCommentsController::class, 'userLikes']);          /*   */
+Route::get('/commentlikes/all', [LikeCommentsController::class, 'allLikes']);                  
+Route::get('/commentlikes/detail/{id}', [LikeCommentsController::class, 'detail']);           
+Route::post('/commentlikes', [LikeCommentsController::class, 'store']);                          /*   */
+Route::put('/commentlikes/{id}', [LikeCommentsController::class, 'update']);               
+Route::post('/commentlikes/check', [LikeCommentsController::class, 'check']);                    /*   */     
+Route::delete('/commentlikes', [LikeCommentsController::class, 'destroy']);                      /*   */
 
 

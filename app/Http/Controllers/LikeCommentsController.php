@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Comment;
+use App\Models\likeComment;
 use App\Models\User;
 
 
@@ -12,9 +12,9 @@ class LikeCommentsController extends Controller
 {
     //
 
-    public function count($post_id)
+    public function count($comment_id)
     {
-        $count = Like::where('post_id', $post_id)->count();
+        $count = likeComment::where('comment_id', $comment_id)->count();
         return response()->json(['count' => $count]);
     }
 
@@ -32,7 +32,7 @@ class LikeCommentsController extends Controller
 
     public function allLikes()
     {
-        $likes = Like::all();
+        $likes = likeComment::all();
         return response()->json($likes);
     }
 
@@ -41,7 +41,7 @@ class LikeCommentsController extends Controller
 
     public function detail($id)
     {
-        $like = Like::find($id);
+        $like = likeComment::find($id);
         if ($like) {
             return response()->json($like);
         }
@@ -53,12 +53,8 @@ class LikeCommentsController extends Controller
 
 
 
-
-
-
-
-
     /*   */
+
 
     public function store(Request $request)
 {
@@ -66,11 +62,13 @@ class LikeCommentsController extends Controller
     $request->validate([
         'user_id' => 'required|integer',
         'post_id' => 'required|integer',
+        'comment_id' => 'required|integer'
     ]);
 
     // Check if the like already exists
-    $existingLike = Like::where('user_id', $request->user_id)
+    $existingLike = likeComment::where('user_id', $request->user_id)
                         ->where('post_id', $request->post_id)
+                        ->where('comment_id', $request->comment_id)
                         ->first();
 
     if ($existingLike) {
@@ -78,13 +76,19 @@ class LikeCommentsController extends Controller
     }
 
     // Create a new like if it does not exist
-    $like = new Like;
+    $like = new likeComment;
     $like->user_id = $request->user_id;
     $like->post_id = $request->post_id;
+    $like->comment_id = $request->comment_id;
     $like->save();
 
     return response()->json(['message' => 'Like added successfully', 'like' => $like]);
 }
+
+
+
+
+/*    */
 
 
 
@@ -93,16 +97,20 @@ public function check(Request $request)
         $request->validate([
             'user_id' => 'required|integer',
             'post_id' => 'required|integer',
+            'comment_id' => 'required|integer'
         ]);
     
-        $likeExists = Like::where('user_id', $request->user_id)
+        $likeExists = likeComment::where('user_id', $request->user_id)
                           ->where('post_id', $request->post_id)
+                        ->where('comment_id', $request->comment_id)
                           ->exists();
     
         return response()->json(['exists' => $likeExists]);
     }
 
 
+
+      /*    */
 
 
 public function destroy(Request $request)
@@ -111,11 +119,13 @@ public function destroy(Request $request)
     $request->validate([
         'user_id' => 'required|integer',
         'post_id' => 'required|integer',
+        'comment_id' => 'required|integer'
     ]);
 
     // Find the like
-    $like = Like::where('user_id', $request->user_id)
+    $like = likeComment::where('user_id', $request->user_id)
                 ->where('post_id', $request->post_id)
+                ->where('comment_id', $request->comment_id)
                 ->first();
 
     if ($like) {
@@ -129,14 +139,6 @@ public function destroy(Request $request)
 
 
 /*    */
-
-
-
-
-
-
-
-
 
 
 
